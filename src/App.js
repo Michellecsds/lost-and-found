@@ -6,7 +6,7 @@ import Find from './components/Find';
 import Report from './components/Report';
 import Login from './components/Login';
 import History from './components/History';
-import Login from './components/Login';
+//import Login from './components/Login';
 import './App.css';
 
 function App() {
