@@ -43,7 +43,7 @@ function Report() {
   };
 
   return (
-    <div>
+    <div className = "container-fluid report-form">
       <h1>Report a Lost Item</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -67,7 +67,7 @@ function Report() {
         </label>
         <br />
         <label>
-          Where did you find it?
+          Where did you lose it?
           <input
             type="number"
             name="age"
@@ -77,7 +77,7 @@ function Report() {
         </label>
         <br />
         <label>
-          When did you find it?
+          When did you lose it?
           <input
             type="datetime-local"
             name="dateAndTime"

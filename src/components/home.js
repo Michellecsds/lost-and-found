@@ -1,6 +1,5 @@
 // src/components/Home.js
 import React from "react";
-import { Link } from "react-router-dom";
 import "./home.css";
 import myImage from "../images/e7b2ce0dae12eb4726b83cee0d0009c5.jpg";
 
@@ -28,7 +27,7 @@ function Home() {
             </p>
           </div>
           <div class="image">
-            <img src={myImage} class="homeImage"></img>
+            <img src={myImage} class="homeImage" alt = "img"></img>
           </div>
         </div>
       </div>
