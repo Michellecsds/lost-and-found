@@ -16,7 +16,12 @@
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.5",
     "react-router-dom": "^7.1.3",
+<<<<<<< HEAD
+    "react-script": "^2.0.5",
+    "react-scripts": "5.0.1",
+=======
     "react-scripts": "^5.0.1",
+>>>>>>> 5b6503dc2170c68ac3424e7ec367042a34e156e5
     "react-toastify": "^11.0.3",
     "web-vitals": "^4.2.4",
     "yup": "^1.6.1"
