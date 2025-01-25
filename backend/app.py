@@ -2,9 +2,18 @@ import nltk
 from nltk.corpus import stopwords, wordnet as wn
 from nltk.tokenize import word_tokenize
 from nltk import pos_tag
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+cred = credentials.Certificate("lost-and-found-dc831-firebase-adminsdk-fbsvc-c26069cf95.json")
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
 
 app = Flask(__name__)
+CORS(app, resources={r"/rank_posts": {"origins": "*"}}) 
 
 nltk.download('punkt_tab')
 nltk.download('stopwords')
@@ -69,12 +78,30 @@ def get_similarity(sent1,sent2):
 
     return 0.3 * len(set1.intersection(set2)) + 0.7 * len(set1_noun.intersection(set2_noun))
 
-@app.route('/rank_posts',methods=['GET','POST'])
+@app.route('/rank_posts',methods=['POST'])
+@cross_origin()
 def rank_posts():
-    scores = {}
-    for item in to_find:
-        scores[item] = get_similarity(desc,item)
-    return jsonify(sorted(scores.items(), key=lambda item: item[1], reverse=True))
+    to_find_json = request.json
+    to_find_id = to_find_json.get('id')
+    to_find_ref = db.collection('found_items').document(to_find_id)
+    to_find_doc = to_find_ref.get()
+    to_find_description = to_find_doc.to_dict().get('description', '')
+    
+    found_items_ref = db.collection('found_items')
+    docs = found_items_ref.stream()
+
+    scored_items = []
+
+    for doc in docs:
+        data = doc.to_dict()
+        item_id = doc.id 
+        description = data.get('description', '')
+        
+        score = get_similarity(to_find_description,description)
+        
+        scored_items.append({"id": item_id, "description": description, "score": score})
+
+    return jsonify(sorted(scored_items, key=lambda x: x['score'], reverse=True))
 
 desc_input = "Black sports watch with silicone strap"
 to_find_input = ["Black bag with phone inside", "Brown leather bag with wallet","Red backpack with water bottle holder",

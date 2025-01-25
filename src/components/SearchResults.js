@@ -1,33 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './SearchResults.css';
 
 const SearchResults = () => {
+
+  // Example data: Replace with dynamic data from your application
+  const posts = [
+    {
+        "id": 1,
+        "description": "Black bag with phone inside"
+      },
+      {
+        "id": 2,
+        "description": "Brown leather bag with wallet"
+      },
+      {
+        "id": 3,
+        "description": "Red backpack with water bottle holder"
+      },
+      {
+        "id": 4,
+        "description": "Gold watch with leather strap"
+      },
+      {
+        "id": 5,
+        "description": "Silver watch with metal band"
+      }
+  ];
+
   const location = useLocation();
-  
-  // Log the query string to verify it's being captured
-  console.log('Location:', location);
-  
-  const params = new URLSearchParams(location.search);
-  
-  const itemType = params.get('itemType');
-  const title = params.get('title');
-  const description = params.get('description');
-  const date = params.get('date');
+  const { itemData } = location.state || {}; // Receive the item data passed from History.js
+
+  if (!itemData) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="search-results-container">
       <h1>Search Results</h1>
-      {title ? (
-        <div className="item-details">
-          <h2>{itemType} Item: {title}</h2>
-          <p><strong>Description:</strong> {description}</p>
-          <p><strong>Date {itemType}:</strong> {date}</p>
-        </div>
-      ) : (
-        <p>No item details available.</p>
-      )}
-      
+      <ul>
+        {itemData.map((post, index) => (
+          <li key={index}>
+            <strong>Post ID:</strong> {post.id} <br />
+            <strong>Description:</strong> {post.description}
+          </li>
+        ))}
+      </ul>
       {/* Back Link */}
       <Link to="/" className="back-link">Back to History</Link>
     </div>

@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './History.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { db } from "../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
 // Sample Data
 const sampleLostItems = [
@@ -46,15 +49,54 @@ const sampleFoundItems = [
 ];
 
 const History = () => {
-  const [lostItems, setLostItems] = useState(sampleLostItems);
-  const [foundItems, setFoundItems] = useState(sampleFoundItems);
+  //const [lostItems, setLostItems] = useState(sampleLostItems);
+  //const [foundItems, setFoundItems] = useState(sampleFoundItems);
+
+  const [lostItems, setLostItems] = useState([]);
+  const [foundItems, setFoundItems] = useState([]);
 
   const navigate = useNavigate();
 
-  // Function to handle item click and navigate to search results page
+  useEffect(() => {
+    // Fetch lost items
+    const fetchLostItems = async () => {
+      const snapshot = await getDocs(collection(db, 'lost_items'));
+      const items = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setLostItems(items);
+    };
+
+    // Fetch found items
+    const fetchFoundItems = async () => {
+      const snapshot = await getDocs(collection(db, 'found_items'));
+      const items = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setFoundItems(items);
+    };
+
+    fetchLostItems();
+    fetchFoundItems();
+  }, []);
+
   const handleItemClick = (itemType, item) => {
-    // Passing the clicked item to the search results page using state
-    navigate('/search-results', { state: { itemType, item } });
+    console.log("Item clicked:", item);
+    axios.post('http://127.0.0.1:5000/rank_posts', { id: item.id },{
+      headers: {
+     'Content-Type': 'application/json',  // Ensure proper content type
+   }
+    })
+      .then(response => {
+        const itemData = response.data;
+        // Navigate to search results page with item data from backend response
+        navigate('/search-results', { state: { itemData } });
+      })
+      .catch(error => {
+        console.error('Error sending data to backend:', error);
+      });
   };
 
   return (
@@ -72,7 +114,7 @@ const History = () => {
               >
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <p><strong>Date Lost:</strong> {item.dateLost}</p>
+                <p><strong>Date Lost:</strong> {item.date_lost}</p>
               </li>
             ))}
           </ul>
@@ -92,7 +134,7 @@ const History = () => {
               >
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <p><strong>Date Found:</strong> {item.dateFound}</p>
+                <p><strong>Date Found:</strong> {item.date_found}</p>
               </li>
             ))}
           </ul>
