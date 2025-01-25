@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import './Find.css';
+import React, { useState } from "react";
+import { db } from "../firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
+import "./Find.css";
 
 function Find() {
   const [formData, setFormData] = useState({
-    description: '',
+    description: "",
     picture: null,
-    location: '',
-    dateAndTime: '',
-    name: '',
-    phoneNumber: '',
+    location: "",
+    dateAndTime: "",
+    name: "",
+    phoneNumber: "",
   });
 
   const handleChange = (e) => {
@@ -19,32 +21,46 @@ function Find() {
     });
   };
 
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      picture: e.target.files[0], // Capture the uploaded file
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://your-backend-api.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      // Add the form data to the Firebase Firestore collection
+      const docRef = await addDoc(collection(db, "found_items"), {
+        description: formData.description,
+        location: formData.location,
+        date_found: formData.dateAndTime,
+        contact_details: formData.phoneNumber,
+        photo_url: formData.picture ? URL.createObjectURL(formData.picture) : null, // Store URL if picture is uploaded
       });
 
-      if (response.ok) {
-        alert('Data submitted successfully');
-        setFormData({ description: '', picture: null, location: '', dateAndTime: '', name: '', phoneNumber: '' }); // Reset form
-      } else {
-        alert('Error submitting data');
-      }
+      alert("Data submitted successfully");
+      console.log("Document written with ID: ", docRef.id);
+
+      // Reset form
+      setFormData({
+        description: "",
+        picture: null,
+        location: "",
+        dateAndTime: "",
+        name: "",
+        phoneNumber: "",
+      });
     } catch (error) {
-      console.error('Error:', error);
-      alert('There was an error submitting the form');
+      console.error("Error adding document: ", error);
+      alert("There was an error submitting the form");
     }
   };
 
   return (
-    <div class = "find">
+    <div className="find">
       <h1>Find Your Item</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -54,6 +70,7 @@ function Find() {
             name="description"
             value={formData.description}
             onChange={handleChange}
+            required
           />
         </label>
         <br />
@@ -62,18 +79,18 @@ function Find() {
           <input
             type="file"
             name="picture"
-            value={formData.picture}
-            onChange={handleChange}
+            onChange={handleFileChange}
           />
         </label>
         <br />
         <label>
           Where did you find it?
           <input
-            type="number"
-            name="age"
-            value={formData.age}
+            type="text"
+            name="location"
+            value={formData.location}
             onChange={handleChange}
+            required
           />
         </label>
         <br />
@@ -84,6 +101,7 @@ function Find() {
             name="dateAndTime"
             value={formData.dateAndTime}
             onChange={handleChange}
+            required
           />
         </label>
         <br />
@@ -94,12 +112,13 @@ function Find() {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
+            required
           />
         </label>
         <br />
         <button type="submit">Submit</button>
       </form>
-      </div>
+    </div>
   );
 }
 

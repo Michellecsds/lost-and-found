@@ -1,76 +1,72 @@
 /* Find.css */
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-   */
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  label {
-    display: block;
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 8px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  input[type="tel"] {
-    max-width: 100%;
-  }
-  
-  input[type="datetime-local"] {
-    padding-left: 12px;
-  }
-  
-  .find button {
-    width: 100%;
-    padding: 12px;
-    background-color: #3CADEA;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .find button:hover {
-    background-color: #2D848A;
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"] {
+  max-width: 100%;
+}
+
+input[type="datetime-local"] {
+  padding-left: 12px;
+}
+
+.find button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3CADEA;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.find button:hover {
+  background-color: #2D848A;
+}
+
+button:focus {
+  outline: none;
+}
