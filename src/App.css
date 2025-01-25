@@ -1,5 +1,9 @@
 .App {
-  text-align: center;
+  text-align:center;
+}
+html {
+  font-size: 20px; /* You can adjust this value */
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 .App-logo {
@@ -36,3 +40,4 @@
     transform: rotate(360deg);
   }
 }
+

@@ -16,7 +16,7 @@
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.5",
     "react-router-dom": "^7.1.3",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^11.0.3",
     "web-vitals": "^4.2.4",
     "yup": "^1.6.1"
@@ -44,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "web-vitals": "^4.2.4"
   }
 }
