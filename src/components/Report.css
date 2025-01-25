@@ -21,6 +21,7 @@ h1 {
   color: #333;
 }
 
+
 form {
   background-color: #fff;
   padding: 25px;
@@ -59,7 +60,7 @@ input[type="datetime-local"] {
   padding-left: 12px;
 }
 
-button {
+.report-form button {
   width: 100%;
   padding: 14px;
   background-color: #3CADEA;
@@ -72,16 +73,16 @@ button {
   text-align: center;
 }
 
-button:hover {
+.report-form button:hover {
   background-color: #2D848A;
   transition: background-color 0.3s ease;
 }
 
-button:focus {
+.report-form button:focus {
   outline: none;
 }
 
-.container-fluid.report-form {
+.container-fluid .report-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,7 +90,7 @@ button:focus {
   padding: 20px;
 }
 
-@media screen and (max-width: 768px) {
+ @media screen and (max-width: 768px) {
   form {
     padding: 20px;
     max-width: 100%;
@@ -100,8 +101,8 @@ button:focus {
   }
 
   input,
-  button {
+  .report-form button {
     font-size: 14px;
     padding: 10px;
   }
-}
+} 
