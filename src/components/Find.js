@@ -44,7 +44,7 @@ function Find() {
   };
 
   return (
-    <div>
+    <div class = "find">
       <h1>Find Your Item</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -68,7 +68,7 @@ function Find() {
         </label>
         <br />
         <label>
-          Where did you lose it?
+          Where did you find it?
           <input
             type="number"
             name="age"
@@ -78,7 +78,7 @@ function Find() {
         </label>
         <br />
         <label>
-          When did you lose it?
+          When did you find it?
           <input
             type="datetime-local"
             name="dateAndTime"
@@ -99,7 +99,7 @@ function Find() {
         <br />
         <button type="submit">Submit</button>
       </form>
-    </div>
+      </div>
   );
 }
 

@@ -1,7 +1,7 @@
 // src/components/Home.js
 import React from "react";
-import { Link } from "react-router-dom";
 import "./home.css";
+import { Link } from 'react-router-dom';
 import myImage from "../images/e7b2ce0dae12eb4726b83cee0d0009c5.jpg";
 
 function Home() {
@@ -28,7 +28,7 @@ function Home() {
             </p>
           </div>
           <div class="image">
-            <img src={myImage} class="homeImage"></img>
+            <img src={myImage} class="homeImage" alt = "img"></img>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@ function Home() {
               <p>
               Our platform allows you to quickly report lost items with a detailed description and location. This helps increase the chances of your items being found and returned.
               </p>
-              <button type="button" class = "button">Report Lost Item</button>
+              <button type="button" class = "button"><Link to="/Report">Report Lost Item</Link></button>
             </div>
           </div>
           <div class="child">
@@ -49,7 +49,7 @@ function Home() {
               <p>
               Browse through the list of found items reported by others. If you find your item, you can easily claim it and arrange for its return.
               </p>
-              <button type="button" class = "button">Find Found Item</button>
+              <button type="button" class = "button"><Link to="/Find">Find Found Item</Link></button>
             </div>
           </div>
         </div>

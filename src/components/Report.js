@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
 import './Report.css';
 
 function Report() {
@@ -44,7 +43,7 @@ function Report() {
   };
 
   return (
-    <div>
+    <div className = "container-fluid report">
       <h1>Report a Lost Item</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -68,7 +67,7 @@ function Report() {
         </label>
         <br />
         <label>
-          Where did you find it?
+          Where did you lose it?
           <input
             type="number"
             name="age"
@@ -78,7 +77,7 @@ function Report() {
         </label>
         <br />
         <label>
-          When did you find it?
+          When did you lose it?
           <input
             type="datetime-local"
             name="dateAndTime"
