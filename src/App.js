@@ -6,6 +6,7 @@ import Find from './components/Find';
 import Report from './components/Report';
 import History from './components/History';
 import SearchResults from './components/SearchResults';
+import Login from './components/Login';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/find" element={<Find />} />
           <Route path="/history" element={<History />} />
           <Route path="/search-results" element={<SearchResults />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
