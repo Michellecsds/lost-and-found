@@ -12,7 +12,7 @@ function Navbar() {
           <li><Link to="/Report">Report Lost Item</Link></li>
           <li><Link to="/Find">Found Items</Link></li>
           <li><Link to="/History">History</Link></li>
-
+          <li><Link to="/Login">Login</Link></li>
         </ul>
       </nav>
     </div>

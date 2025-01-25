@@ -1,11 +1,11 @@
 /* Login.css */
 
 /* Basic reset */
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+  } */
   
   body {
     font-family: Arial, sans-serif;
@@ -22,6 +22,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 300px;
+    max-width: 350px;
+    align-items: center;
   }
   
   h1 {
@@ -32,6 +34,7 @@
   form {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   
   form div {
