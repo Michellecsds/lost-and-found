@@ -1,4 +1,3 @@
-
 .jumbotron {
     padding: 3rem 2rem;
     background-color: #baf2e9;
@@ -17,8 +16,10 @@
 img {
     display: block;
     margin-left: auto;
-    max-width: 100%;
-    height: 350px;
+    width: auto;
+    max-width: 400px;
+    height: auto;
+    max-height: 350px;
     border-radius: 10px;
   }
 
@@ -94,3 +95,6 @@ p {
     margin: 0 auto;
     display: block;
   }
+.button:hover{
+    background-color: #f67f9f;
+}

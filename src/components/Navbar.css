@@ -2,16 +2,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  background-color: #333;
+  background-color: #3587A4;
   color: white;
   font-size: 25px;
+  position: fixed;
+  padding-top:10px;
+  top: 0px;
+  width:100%;
+  margin-bottom: 10px;
+  z-index: 1000;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 40px;
+  gap: 20px;
 }
 
 .nav-links a {
