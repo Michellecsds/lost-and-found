@@ -1,0 +1,96 @@
+
+.jumbotron {
+    padding: 3rem 2rem;
+    background-color: #baf2e9;
+    border-radius: 0.5rem;
+    margin: 40px auto;
+    max-width: 80%;
+}
+.jumbotron h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.jumbotron p {
+    font-size: 1.25rem;
+}
+img {
+    display: block;
+    margin-left: auto;
+    max-width: 100%;
+    height: 350px;
+    border-radius: 10px;
+  }
+
+.container {
+display: flex;
+align-items: center;
+padding: 20px;
+}
+
+body {
+font-family: Arial, sans-serif;
+}
+
+.text {
+    flex: 1;
+    padding:20px;
+    text-align: justify;
+    margin-top: 0px;
+}
+  
+.image {
+    flex: 1;
+    text-align: right;
+    margin-left:10px;
+}
+.parent {
+    margin-top: 0px;
+    display: flex;
+    justify-content: space-between; /* Distribute space between items */
+    align-items: stretch; 
+    padding: 3rem 2rem;
+    
+  }
+  .child {
+    flex: 1; /* Make both child divs take equal space */
+    margin: 0 10px; /* Add margin between the child divs */
+}
+.first, .second{
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    padding: 20px;
+}
+.first{
+    background-color: #BAD7F2;
+    border-radius: 0.5rem;
+    max-width: 90%;
+}
+.second{
+    background-color: #F2E2BA;
+    border-radius: 0.5rem;
+    max-width: 90%;
+}
+
+p {
+    margin: 5px 0; /* Reduce margin between paragraphs */
+    font-size: 20px;
+}
+
+.button {
+    background-color: #F2BAC9; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 0.5rem;
+    font-size: 18px;
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+  }
