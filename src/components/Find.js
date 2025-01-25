@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { db } from "../firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
 import "./Find.css";
 
 function Find() {
   const [formData, setFormData] = useState({
+    name: "",
+    category: "Other",
     description: "",
     picture: null,
     location: "",
     dateAndTime: "",
-    name: "",
     phoneNumber: "",
   });
 
@@ -32,8 +34,13 @@ function Find() {
     e.preventDefault();
 
     try {
-      // Add the form data to the Firebase Firestore collection
-      const docRef = await addDoc(collection(db, "found_items"), {
+      const itemId = uuidv4(); // Generate a unique ID for the found item
+
+      // Add the form data to Firestore with the unique ID
+      await setDoc(doc(db, "found_items", itemId), {
+        id: itemId, // Explicitly store the ID
+        name: formData.name,
+        category: formData.category,
         description: formData.description,
         location: formData.location,
         date_found: formData.dateAndTime,
@@ -41,16 +48,16 @@ function Find() {
         photo_url: formData.picture ? URL.createObjectURL(formData.picture) : null, // Store URL if picture is uploaded
       });
 
-      alert("Data submitted successfully");
-      console.log("Document written with ID: ", docRef.id);
+      alert("Data submitted successfully with ID: " + itemId);
 
       // Reset form
       setFormData({
+        name: "",
+        category: "Other",
         description: "",
         picture: null,
         location: "",
         dateAndTime: "",
-        name: "",
         phoneNumber: "",
       });
     } catch (error) {
@@ -63,6 +70,32 @@ function Find() {
     <div className="find">
       <h1>Report a Found Item/ Find Your Item</h1>
       <form onSubmit={handleSubmit}>
+        <label>
+          Name of the item:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Category:
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Documents">Documents</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <br />
         <label>
           Describe the item:
           <input
