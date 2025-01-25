@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './History.css';
+import { useNavigate } from 'react-router-dom';
 
 // Sample Data
 const sampleLostItems = [
@@ -48,6 +49,14 @@ const History = () => {
   const [lostItems, setLostItems] = useState(sampleLostItems);
   const [foundItems, setFoundItems] = useState(sampleFoundItems);
 
+  const navigate = useNavigate();
+
+  // Function to handle item click and navigate to search results page
+  const handleItemClick = (itemType, item) => {
+    // Passing the clicked item to the search results page using state
+    navigate('/search-results', { state: { itemType, item } });
+  };
+
   return (
     <div className="history-container">
       <h1>User's Post History</h1>
@@ -57,7 +66,10 @@ const History = () => {
         {lostItems.length > 0 ? (
           <ul>
             {lostItems.map(item => (
-              <li key={item.id}>
+              <li key={item.id} 
+              onClick={() => handleItemClick("Lost", item)} 
+              style={{ cursor: 'pointer' }}
+              >
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <p><strong>Date Lost:</strong> {item.dateLost}</p>
@@ -74,7 +86,10 @@ const History = () => {
         {foundItems.length > 0 ? (
           <ul>
             {foundItems.map(item => (
-              <li key={item.id}>
+              <li key={item.id}
+              onClick={() => handleItemClick("Found", item)}
+              style={{ cursor: 'pointer' }}
+              >
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <p><strong>Date Found:</strong> {item.dateFound}</p>
