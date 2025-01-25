@@ -43,7 +43,7 @@ function Report() {
   };
 
   return (
-    <div className = "container-fluid report-form">
+    <div className = "container-fluid report">
       <h1>Report a Lost Item</h1>
       <form onSubmit={handleSubmit}>
         <label>

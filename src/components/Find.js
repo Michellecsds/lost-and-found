@@ -44,7 +44,7 @@ function Find() {
   };
 
   return (
-    <div>
+    <div class = "find">
       <h1>Find Your Item</h1>
       <form onSubmit={handleSubmit}>
         <label>

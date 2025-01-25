@@ -56,10 +56,10 @@
     padding-left: 12px;
   }
   
-  button {
+  .report button {
     width: 100%;
     padding: 12px;
-    background-color: #007BFF;
+    background-color: #3CADEA;
     color: white;
     border: none;
     border-radius: 4px;
@@ -67,8 +67,8 @@
     cursor: pointer;
   }
   
-  button:hover {
-    background-color: #0056b3;
+  .report button:hover {
+    background-color: #2D848A;
   }
   
   button:focus {
