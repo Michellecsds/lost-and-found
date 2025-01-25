@@ -2,7 +2,7 @@ import nltk
 from nltk.corpus import stopwords, wordnet as wn
 from nltk.tokenize import word_tokenize
 from nltk import pos_tag
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
@@ -69,18 +69,21 @@ def get_similarity(sent1,sent2):
 
     return 0.3 * len(set1.intersection(set2)) + 0.7 * len(set1_noun.intersection(set2_noun))
 
-@app.route('/rank_posts',methods=['GET'])
-def rank_posts(desc, to_find):
+@app.route('/rank_posts',methods=['GET','POST'])
+def rank_posts():
     scores = {}
     for item in to_find:
         scores[item] = get_similarity(desc,item)
-    return sorted(scores.items(), key=lambda item: item[1], reverse=True)
+    return jsonify(sorted(scores.items(), key=lambda item: item[1], reverse=True))
 
 desc_input = "Black sports watch with silicone strap"
 to_find_input = ["Black bag with phone inside", "Brown leather bag with wallet","Red backpack with water bottle holder",
            "Gold watch with leather strap","Silver watch with metal band"]
 
-print(rank_posts(desc_input, to_find_input))
+if __name__ == "__main__":
+    app.run()
+
+#print(rank_posts(desc_input, to_find_input))
 
 #sentence1 = "black bag with mac and bottle"
 #sentence2 = "white computer"
