@@ -29,7 +29,7 @@ const SearchResults = () => {
       )}
       
       {/* Back Link */}
-      <Link to="/" className="back-link">Back to History</Link>
+      <Link to="/History" className="back-link">Back to History</Link>
     </div>
   );
 };

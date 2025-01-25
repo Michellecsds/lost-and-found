@@ -60,7 +60,7 @@ input[type="datetime-local"] {
   padding-left: 12px;
 }
 
-button {
+.report-form button {
   width: 100%;
   padding: 14px;
   background-color: #3CADEA;
@@ -73,12 +73,12 @@ button {
   text-align: center;
 }
 
-button:hover {
+.report-form button:hover {
   background-color: #2D848A;
   transition: background-color 0.3s ease;
 }
 
-button:focus {
+.report-form button:focus {
   outline: none;
 }
 
@@ -101,7 +101,7 @@ button:focus {
   }
 
   input,
-  button {
+  .report-form button {
     font-size: 14px;
     padding: 10px;
   }
