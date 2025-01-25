@@ -7,12 +7,18 @@
   font-size: 25px;
   position: fixed;
   padding-top:10px;
+  padding-bottom:10px;
   top: 0px;
   width:100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   z-index: 1000;
 }
-
+.title{
+  text-align: left;
+  padding-left: 10px;
+  margin-left: 20px;
+  color: white;
+}
 .nav-links {
   list-style: none;
   display: flex;
@@ -26,4 +32,8 @@
 
 .nav-links a:hover {
   text-decoration: underline;
+}
+.nav-link.active {
+  color: #1B2845; /* Change this to the color you want for the active link */
+  font-weight: bold;
 }
