@@ -1,35 +1,56 @@
-import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import './SearchResults.css';
+import React, { useEffect, useState } from "react";
+import { db } from "../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
+import { useLocation } from "react-router-dom";
+import "./SearchResults.css";
 
 const SearchResults = () => {
-  const location = useLocation();
-  
-  // Log the query string to verify it's being captured
-  console.log('Location:', location);
-  
-  const params = new URLSearchParams(location.search);
-  
-  const itemType = params.get('itemType');
-  const title = params.get('title');
-  const description = params.get('description');
-  const date = params.get('date');
+  const [foundItems, setFoundItems] = useState([]); // To store found items
+  const location = useLocation(); // Retrieve any passed state if needed
+
+  useEffect(() => {
+    const fetchFoundItems = async () => {
+      try {
+        // Fetch all documents from the "found_items" collection
+        const querySnapshot = await getDocs(collection(db, "found_items"));
+        const items = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log("Fetched found items:", items); // Debugging log
+        setFoundItems(items);
+      } catch (error) {
+        console.error("Error fetching found items:", error);
+      }
+    };
+
+    fetchFoundItems();
+  }, []);
 
   return (
     <div className="search-results-container">
       <h1>Search Results</h1>
-      {title ? (
-        <div className="item-details">
-          <h2>{itemType} Item: {title}</h2>
-          <p><strong>Description:</strong> {description}</p>
-          <p><strong>Date {itemType}:</strong> {date}</p>
-        </div>
+      {foundItems.length > 0 ? (
+        <ul>
+          {foundItems.map((item) => (
+            <li key={item.id} className="search-result-item">
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
+              <p>
+                <strong>Date Found:</strong> {item.date_found}
+              </p>
+              <p>
+                <strong>Location:</strong> {item.location}
+              </p>
+              <p>
+                <strong>Contact Details:</strong> {item.contact_details}
+              </p>
+            </li>
+          ))}
+        </ul>
       ) : (
-        <p>No item details available.</p>
+        <p>No found items to display.</p>
       )}
-      
-      {/* Back Link */}
-      <Link to="/" className="back-link">Back to History</Link>
     </div>
   );
 };
