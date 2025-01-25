@@ -1,77 +1,107 @@
-
 * {
-    box-sizing: border-box;
-    width:100%;
-    font-size: 25px;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+}
+
+form {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="file"],
+input[type="datetime-local"] {
+  max-width: 100%;
+}
+
+input[type="datetime-local"] {
+  padding-left: 12px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #3CADEA;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+button:hover {
+  background-color: #2D848A;
+  transition: background-color 0.3s ease;
+}
+
+button:focus {
+  outline: none;
+}
+
+.container-fluid.report-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+@media screen and (max-width: 768px) {
   form {
-    background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    margin: 0 auto; 
-  }
-  
-  label {
-    display: block;
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 8px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  input[type="tel"] {
     max-width: 100%;
   }
-  
-  input[type="datetime-local"] {
-    padding-left: 12px;
+
+  h1 {
+    font-size: 24px;
   }
-  
-  .report button {
-    width: 100%;
-    padding: 12px;
-    background-color: #3CADEA;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
+
+  input,
+  button {
+    font-size: 14px;
+    padding: 10px;
   }
-  
-  .report button:hover {
-    background-color: #2D848A;
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  
+}
