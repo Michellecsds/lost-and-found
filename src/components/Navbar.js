@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <div className="container-fluid">
     <nav className="navbar">
-      <h1 class = "title">Lost & Found</h1>
+      <h1 class = "title">Lost & Found at Uni</h1>
       <ul className="nav-links">
             <li className="nav-item">
               <NavLink className="nav-link" to="/" exact activeClassName="active">Home</NavLink>
@@ -19,6 +19,9 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/History" activeClassName="active">History</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/Login" activeClassName="active">Log-in</NavLink>
             </li>
           </ul>
 {/*         <li><Link to="/">Home</Link></li>
