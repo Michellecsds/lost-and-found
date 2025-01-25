@@ -61,7 +61,7 @@ function Find() {
 
   return (
     <div className="find">
-      <h1>Find Your Item</h1>
+      <h1>Report a Found Item/ Find Your Item</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Describe the item:
