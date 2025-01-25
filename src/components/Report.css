@@ -21,6 +21,7 @@ h1 {
   color: #333;
 }
 
+
 form {
   background-color: #fff;
   padding: 25px;
@@ -81,7 +82,7 @@ button:focus {
   outline: none;
 }
 
-.container-fluid.report-form {
+.container-fluid .report-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,7 +90,7 @@ button:focus {
   padding: 20px;
 }
 
-@media screen and (max-width: 768px) {
+ @media screen and (max-width: 768px) {
   form {
     padding: 20px;
     max-width: 100%;
@@ -104,4 +105,4 @@ button:focus {
     font-size: 14px;
     padding: 10px;
   }
-}
+} 

@@ -4,7 +4,7 @@ import './Navbar.css';
 
 function Navbar() {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid navbar-expand-lg">
     <nav className="navbar">
       <h1 class = "title">Lost & Found at Uni</h1>
       <ul className="nav-links">
