@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/home';
 import Find from './components/Find';
 import Report from './components/Report';
+import Login from './components/Login';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/report" element={<Report />} />
           <Route path="/find" element={<Find />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
