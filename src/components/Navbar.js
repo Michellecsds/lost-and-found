@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <div className="container-fluid navbar-expand-lg">
     <nav className="navbar">
-      <h1 class = "title">Lost & Found at Uni</h1>
+      <h1 class = "title">Anagolay - Lost & Found at Uni</h1>
       <ul className="nav-links">
             <li className="nav-item">
               <NavLink className="nav-link" to="/" exact activeClassName="active">Home</NavLink>

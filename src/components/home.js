@@ -1,14 +1,11 @@
 // src/components/Home.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./home.css";
 import { Link } from "react-router-dom";
 import myImage from "../images/e7b2ce0dae12eb4726b83cee0d0009c5.jpg";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-
-const containerStyle = {
-  width: "100%",
-  height: "400px",
-};
+import { db } from "../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
 const center = {
   lat: 51.5226, //UCL
@@ -16,10 +13,61 @@ const center = {
 };
 
 
+/* const foundLocations = [
+  { id: 1, title: "UCL Student Centre" },
+  { id: 2, title: "London Eye" },
+  { id: 3, title: "Oxford Street" },
+  { id: 4, title: "Buckingham Palace" },
+]; */
+
+
 function Home() {
+  const [locations, setLocations] = useState([]);
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, 
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
+
+  // Fetch coordinates for each title
+  useEffect(() => {
+    const fetchfoundItems = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "found_items"));
+        const foundItems = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          location: doc.data().location, // Assuming 'location' contains a human-readable place name
+        }));
+
+        // Fetch coordinates for each location
+        const updatedLocations = await Promise.all(
+          foundItems.map(async (item) => {
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(item.location)}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+
+            try {
+              const response = await fetch(url);
+              const data = await response.json();
+
+              if (data.status === "OK") {
+                const { lat, lng } = data.results[0].geometry.location;
+                return { ...item, lat, lng };
+              } else {
+                console.error(`Geocoding failed for ${item.location}:`, data.status);
+                return item; // Keep the original location if geocoding fails
+              }
+            } catch (error) {
+              console.error(`Error fetching coordinates for ${item.location}:`, error);
+              return item; // Keep the original location if fetch fails
+            }
+          })
+        );
+
+        setLocations(updatedLocations);
+      } catch (error) {
+        console.error("Error fetching lost items:", error);
+      }
+    };
+
+    fetchfoundItems();
+  }, []);
 
   if (!isLoaded) return <div>Loading...</div>;
 
@@ -27,12 +75,12 @@ function Home() {
     <div class="container-fluid py-5 mt-5">
       <div class="jumbotron">
         <h1 class="display-5 fw-bold text-center">
-          Lost & Found at Uni: Uniting Students with Their Belongings
+        Anagolay - Lost & Found at Uni: Uniting Students with Their Belongings
         </h1>
         <div class="container">
           <div class="text">
             <p class="col-md-8 fs-4">
-              "Lost & Found at Uni" is a dedicated platform for university
+              "Anagolay - Lost & Found at Uni" is a dedicated platform for university
               students to report and locate lost items within the campus. With
               easy-to-navigate features, students can
               <ul>
@@ -90,9 +138,22 @@ function Home() {
           </div>
         </div>
       </div>
+      <div>
+        <p>Did you lose your item? Check the map for found items!</p>
+      </div>
       <div class="mapContainer">
-      <GoogleMap mapContainerClassName="mapContainer" center={center} zoom={15}>
-      <Marker position={center} />
+      <GoogleMap mapContainerClassName="mapContainer" center={center} zoom={12}>
+      {locations.map(
+            (location) =>
+              location.lat &&
+              location.lng && (
+                <Marker
+                  key={location.id}
+                  position={{ lat: location.lat, lng: location.lng }}
+                  title={location.location}
+                />
+              )
+          )}
     </GoogleMap>
     </div>
     </div>

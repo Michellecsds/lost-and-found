@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 import './History.css';
 import axios from 'axios';
 
-// Sample Data
-const sampleLostItems = [
+/* const samplefoundItems = [
   {
     id: 1,
     title: "Lost Wallet",
@@ -46,32 +45,30 @@ const sampleFoundItems = [
     description: "A pair of Ray-Ban sunglasses in a black case.",
     dateFound: "2025-01-22"
   }
-];
+]; */
 
 const History = () => {
-  const [lostItems, setLostItems] = useState([]); // To store lost items
+  const [foundItems, setfoundItems] = useState([]); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchLostItems = async () => {
+    const fetchfoundItems = async () => {
       try {
-        // Fetch all documents from the "lost_items" collection
         const querySnapshot = await getDocs(collection(db, "lost_items"));
         const items = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        console.log("Fetched lost items:", items); // Debugging log
-        setLostItems(items);
+        console.log("Fetched lost items:", items); 
+        setfoundItems(items);
       } catch (error) {
         console.error("Error fetching lost items:", error);
       }
     };
 
-    fetchLostItems();
+    fetchfoundItems();
   }, []);
 
-  // Navigate to SearchResults page
   const handleItemClick = (item) => {
     console.log("Item clicked:", item);
     axios.post('http://127.0.0.1:5000/rank_posts', { "id": item.id })
@@ -90,9 +87,9 @@ const History = () => {
       <h1>My Items</h1>
       <div className="section">
         <h2>Lost Items</h2>
-        {lostItems.length > 0 ? (
+        {foundItems.length > 0 ? (
           <ul>
-            {lostItems.map((item) => (
+            {foundItems.map((item) => (
               <li
                 key={item.id}
                 onClick={() => handleItemClick(item)}
