@@ -13,12 +13,6 @@ const center = {
 };
 
 
-/* const foundLocations = [
-  { id: 1, title: "UCL Student Centre" },
-  { id: 2, title: "London Eye" },
-  { id: 3, title: "Oxford Street" },
-  { id: 4, title: "Buckingham Palace" },
-]; */
 
 
 function Home() {
@@ -27,17 +21,16 @@ function Home() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
-  // Fetch coordinates for each title
+
   useEffect(() => {
     const fetchfoundItems = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "found_items"));
         const foundItems = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          location: doc.data().location, // Assuming 'location' contains a human-readable place name
+          location: doc.data().location, 
         }));
 
-        // Fetch coordinates for each location
         const updatedLocations = await Promise.all(
           foundItems.map(async (item) => {
             const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(item.location)}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
@@ -51,11 +44,11 @@ function Home() {
                 return { ...item, lat, lng };
               } else {
                 console.error(`Geocoding failed for ${item.location}:`, data.status);
-                return item; // Keep the original location if geocoding fails
+                return item; 
               }
             } catch (error) {
               console.error(`Error fetching coordinates for ${item.location}:`, error);
-              return item; // Keep the original location if fetch fails
+              return item; 
             }
           })
         );

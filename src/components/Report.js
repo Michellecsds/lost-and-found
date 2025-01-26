@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../firebaseConfig";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
+import { v4 as uuidv4 } from "uuid"; 
 import "./Report.css";
 
 function Report() {
@@ -26,7 +26,7 @@ function Report() {
   const handleFileChange = (e) => {
     setFormData({
       ...formData,
-      picture: e.target.files[0], // Handle file input for pictures
+      picture: e.target.files[0], 
     });
   };
 
@@ -34,11 +34,10 @@ function Report() {
     e.preventDefault();
 
     try {
-      const itemId = uuidv4(); // Generate a unique ID for the lost item
+      const itemId = uuidv4(); 
 
-      // Add the form data to Firestore with the unique ID
       await setDoc(doc(db, "lost_items", itemId), {
-        id: itemId, // Explicitly store the ID
+        id: itemId, 
         name: formData.name,
         category: formData.category,
         description: formData.description,
@@ -50,7 +49,6 @@ function Report() {
 
       alert("Lost item submitted successfully with ID: " + itemId);
 
-      // Reset form
       setFormData({
         name: "",
         category: "Other",

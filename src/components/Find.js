@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../firebaseConfig";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
+import { v4 as uuidv4 } from "uuid"; 
 import "./Find.css";
 
 function Find() {
@@ -26,7 +26,7 @@ function Find() {
   const handleFileChange = (e) => {
     setFormData({
       ...formData,
-      picture: e.target.files[0], // Capture the uploaded file
+      picture: e.target.files[0], 
     });
   };
 
@@ -34,23 +34,21 @@ function Find() {
     e.preventDefault();
 
     try {
-      const itemId = uuidv4(); // Generate a unique ID for the found item
+      const itemId = uuidv4(); 
 
-      // Add the form data to Firestore with the unique ID
       await setDoc(doc(db, "found_items", itemId), {
-        id: itemId, // Explicitly store the ID
+        id: itemId, 
         name: formData.name,
         category: formData.category,
         description: formData.description,
         location: formData.location,
         date_found: formData.dateAndTime,
         contact_details: formData.phoneNumber,
-        photo_url: formData.picture ? URL.createObjectURL(formData.picture) : null, // Store URL if picture is uploaded
+        photo_url: formData.picture ? URL.createObjectURL(formData.picture) : null,
       });
 
       alert("Data submitted successfully with ID: " + itemId);
 
-      // Reset form
       setFormData({
         name: "",
         category: "Other",

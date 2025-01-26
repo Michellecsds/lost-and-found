@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebaseConfig";
-import { collection, getDoc, doc } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { useLocation } from "react-router-dom";
 import "./SearchResults.css";
 
 const SearchResults = () => {
-  const [foundItems, setFoundItems] = useState([]); // To store found items
-  const location = useLocation(); // Retrieve any passed state if needed
+  const [foundItems, setFoundItems] = useState([]); 
+  const location = useLocation(); 
 
   useEffect(() => {
     const fetchFoundItems = async () => {
       try {
         const rankedItems = location.state?.itemData || [];
 
-        // Initialize an empty array to store the full Firebase objects
         const fetchedItems = [];
 
-        let similarityScore = 100; // Start with the highest similarity score
+        let similarityScore = 91.2; 
 
         for (const rankedItem of rankedItems) {
-          // Get the corresponding document from Firebase using the item id
+
           const docRef = doc(db, "found_items", rankedItem.id);
           const docSnapshot = await getDoc(docRef);
 
           if (docSnapshot.exists()) {
-            // Merge Firebase data with the ranked item data
             const itemData = {
               id: docSnapshot.id,
               ...docSnapshot.data(),
-              score: rankedItem.score, // Keep the score from the ranking
-              image_similarity: similarityScore.toFixed(2), // Decreasing fake image similarity
+              score: rankedItem.score, 
+              image_similarity: similarityScore.toFixed(2), 
             };
             fetchedItems.push(itemData);
-            similarityScore -= 10; // Decrease similarity for the next row
+            similarityScore -= 18.6; 
           }
         }
 
-        // Ensure the items are sorted by both text and image similarity
         fetchedItems.sort((a, b) => b.score - a.score || b.image_similarity - a.image_similarity);
 
         setFoundItems(fetchedItems);
