@@ -3,8 +3,26 @@ import React from "react";
 import "./home.css";
 import { Link } from 'react-router-dom';
 import myImage from "../images/e7b2ce0dae12eb4726b83cee0d0009c5.jpg";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+
+const containerStyle = {
+  width: "100%",
+  height: "400px",
+};
+
+const center = {
+  lat: 51.5226, //UCL
+  lng: -0.1306,
+};
+
 
 function Home() {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, 
+  });
+
+  if (!isLoaded) return <div>Loading...</div>;
+
   return (
     <div class="container-fluid py-5 mt-5">
       <div class="jumbotron">
@@ -54,6 +72,11 @@ function Home() {
           </div>
         </div>
       </div>
+      <div class="mapContainer">
+      <GoogleMap mapContainerClassName="mapContainer" center={center} zoom={15}>
+      <Marker position={center} />
+    </GoogleMap>
+    </div>
     </div>
   );
 }

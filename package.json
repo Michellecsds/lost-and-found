@@ -8,6 +8,7 @@
     "@googlemaps/js-api-loader": "^1.16.8",
     "@mui/icons-material": "^6.4.1",
     "@mui/material": "^6.4.1",
+    "@react-google-maps/api": "^2.20.5",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
     "firebase": "^11.2.0",

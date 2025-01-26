@@ -90,7 +90,6 @@ def rank_posts():
         to_find_doc = to_find_ref.get() 
         print(to_find_doc)
 
-        # Extract the description field
         to_find_data = to_find_doc.to_dict()
         print(to_find_data)
         print(f"Document fields: {to_find_doc.to_dict()}")
@@ -101,20 +100,18 @@ def rank_posts():
 
         print(f"Description fetched: {to_find_description}")
 
-        # Fetch all documents in 'found_items' and compute similarity
         found_items_ref = db.collection('found_items')
         docs = found_items_ref.stream()
 
         scored_items = []
         for doc in docs:
-            data = doc.to_dict()  # Convert document snapshot to dictionary
+            data = doc.to_dict()  
             item_id = doc.id
-            description = data.get('description', '')  # Safely retrieve 'description'
+            description = data.get('description', '')  
 
             score = get_similarity(to_find_description, description)
             scored_items.append({"id": item_id, "description": description, "score": score})
 
-        # Return sorted items
         return jsonify(sorted(scored_items, key=lambda x: x['score'], reverse=True))
 
     except Exception as e:
