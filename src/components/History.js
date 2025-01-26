@@ -78,7 +78,7 @@ const History = () => {
     .then(response => {
       const itemData = response.data;
       console.log(itemData);
-      navigate('/search-results', { state: { lostItem:item } });
+      navigate('/search-results', { state: { itemData } });
     })
     .catch(error => {
       console.error('Error sending data to backend:', error);
