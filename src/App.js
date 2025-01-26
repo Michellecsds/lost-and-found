@@ -7,7 +7,7 @@ import Report from './components/Report';
 import Login from './components/Login';
 import History from './components/History';
 import SearchResults from './components/SearchResults';
-import Login from './components/Login';
+//import Login from './components/Login';
 import './App.css';
 import FloatingChat from "./components/FloatingChat";
 import ChatBox from "./components/Chatbox";
@@ -22,7 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/report" element={<Report />} />
           <Route path="/find" element={<Find />} />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/history" element={<History />} />
           <Route path="/search-results" element={<SearchResults />} />
           <Route path="/login" element={<Login />} />
