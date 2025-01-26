@@ -2,7 +2,51 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import "./History.css";
+import './History.css';
+import axios from 'axios';
+
+// Sample Data
+const sampleLostItems = [
+  {
+    id: 1,
+    title: "Lost Wallet",
+    description: "A black leather wallet with several credit cards and an ID.",
+    dateLost: "2025-01-15"
+  },
+  {
+    id: 2,
+    title: "Lost Keys",
+    description: "A set of keys with a red keychain.",
+    dateLost: "2025-01-18"
+  },
+  {
+    id: 3,
+    title: "Lost Phone",
+    description: "A blue iPhone 12 with a cracked screen.",
+    dateLost: "2025-01-20"
+  }
+];
+
+const sampleFoundItems = [
+  {
+    id: 1,
+    title: "Found Backpack",
+    description: "A blue backpack with textbooks inside.",
+    dateFound: "2025-01-16"
+  },
+  {
+    id: 2,
+    title: "Found Watch",
+    description: "A silver wristwatch with a leather strap.",
+    dateFound: "2025-01-19"
+  },
+  {
+    id: 3,
+    title: "Found Sunglasses",
+    description: "A pair of Ray-Ban sunglasses in a black case.",
+    dateFound: "2025-01-22"
+  }
+];
 
 const History = () => {
   const [lostItems, setLostItems] = useState([]); // To store lost items
@@ -29,7 +73,16 @@ const History = () => {
 
   // Navigate to SearchResults page
   const handleItemClick = (item) => {
-    navigate("/search-results", { state: { lostItem: item } });
+    console.log("Item clicked:", item);
+    axios.post('http://127.0.0.1:5000/rank_posts', { "id": item.id })
+    .then(response => {
+      const itemData = response.data;
+      console.log(itemData);
+      navigate('/search-results', { state: { itemData } });
+    })
+    .catch(error => {
+      console.error('Error sending data to backend:', error);
+    });
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDoc, doc } from "firebase/firestore";
 import { useLocation } from "react-router-dom";
 import "./SearchResults.css";
 
@@ -11,14 +11,27 @@ const SearchResults = () => {
   useEffect(() => {
     const fetchFoundItems = async () => {
       try {
-        // Fetch all documents from the "found_items" collection
-        const querySnapshot = await getDocs(collection(db, "found_items"));
-        const items = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        console.log("Fetched found items:", items); // Debugging log
-        setFoundItems(items);
+        const rankedItems = location.state.itemData;
+
+        // Initialize an empty array to store the full Firebase objects
+        const fetchedItems = [];
+
+        for (const rankedItem of rankedItems) {
+        // Get the corresponding document from Firebase using the item id
+        const docRef = doc(db, "found_items", rankedItem.id);
+        const docSnapshot = await getDoc(docRef);
+        
+        if (docSnapshot.exists()) {
+            // Merge Firebase data with the ranked item data
+            const itemData = {
+            id: docSnapshot.id,
+            ...docSnapshot.data(),
+            score: rankedItem.score, // Keep the score from the ranking
+            };
+            fetchedItems.push(itemData);
+        }
+        }
+        setFoundItems(fetchedItems);
       } catch (error) {
         console.error("Error fetching found items:", error);
       }
