@@ -67,7 +67,7 @@ const SearchResults = () => {
                 <strong>Contact Details:</strong> {item.contact_details}
               </p>
               <p>
-                <strong>Text Similarity Score:</strong> {item.score?.toFixed(2)}%
+                <strong>Text Similarity Score:</strong> {item.score?.toFixed(2)}
               </p>
               <p>
                 <strong>Image Similarity Score:</strong> {item.image_similarity}%
