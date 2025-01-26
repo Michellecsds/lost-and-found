@@ -58,12 +58,13 @@ font-family: Arial, sans-serif;
     flex: 1; /* Make both child divs take equal space */
     margin: 0 10px; /* Add margin between the child divs */
 }
-.first, .second{
+.first, .second, .third{
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between; 
     padding: 20px;
+    min-height: 300px;
 }
 .first{
     background-color: #BAD7F2;
@@ -72,6 +73,11 @@ font-family: Arial, sans-serif;
 }
 .second{
     background-color: #F2E2BA;
+    border-radius: 0.5rem;
+    max-width: 90%;
+}
+.third{
+    background-color: #b0f2b4;
     border-radius: 0.5rem;
     max-width: 90%;
 }
