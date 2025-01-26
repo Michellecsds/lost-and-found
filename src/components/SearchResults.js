@@ -1,53 +1,57 @@
-import React, { useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import './SearchResults.css';
+import React, { useEffect, useState } from "react";
+import { db } from "../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
+import { useLocation } from "react-router-dom";
+import "./SearchResults.css";
 
 const SearchResults = () => {
+  const [foundItems, setFoundItems] = useState([]); // To store found items
+  const location = useLocation(); // Retrieve any passed state if needed
 
-  // Example data: Replace with dynamic data from your application
-  const posts = [
-    {
-        "id": 1,
-        "description": "Black bag with phone inside"
-      },
-      {
-        "id": 2,
-        "description": "Brown leather bag with wallet"
-      },
-      {
-        "id": 3,
-        "description": "Red backpack with water bottle holder"
-      },
-      {
-        "id": 4,
-        "description": "Gold watch with leather strap"
-      },
-      {
-        "id": 5,
-        "description": "Silver watch with metal band"
+  useEffect(() => {
+    const fetchFoundItems = async () => {
+      try {
+        // Fetch all documents from the "found_items" collection
+        const querySnapshot = await getDocs(collection(db, "found_items"));
+        const items = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log("Fetched found items:", items); // Debugging log
+        setFoundItems(items);
+      } catch (error) {
+        console.error("Error fetching found items:", error);
       }
-  ];
+    };
 
-  const location = useLocation();
-  const { itemData } = location.state || {}; // Receive the item data passed from History.js
-
-  if (!itemData) {
-    return <p>Loading...</p>;
-  }
+    fetchFoundItems();
+  }, []);
 
   return (
     <div className="search-results-container">
       <h1>Search Results</h1>
-      <ul>
-        {itemData.map((post, index) => (
-          <li key={index}>
-            <strong>Post ID:</strong> {post.id} <br />
-            <strong>Description:</strong> {post.description}
-          </li>
-        ))}
-      </ul>
-      {/* Back Link */}
-      <Link to="/" className="back-link">Back to History</Link>
+      {foundItems.length > 0 ? (
+        <ul>
+          {foundItems.map((item) => (
+            <li key={item.id} className="search-result-item">
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
+              <p>
+                <strong>Date Found:</strong> {item.date_found}
+              </p>
+              <p>
+                <strong>Location:</strong> {item.location}
+              </p>
+              <p>
+                <strong>Contact Details:</strong> {item.contact_details}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No found items to display.</p>
+      )}
+      
     </div>
   );
 };

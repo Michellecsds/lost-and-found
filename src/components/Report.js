@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig'; // Ensure this path is correct
-import './Report.css';
+import React, { useState } from "react";
+import { db } from "../firebaseConfig";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
+import "./Report.css";
 
 function Report() {
   const [formData, setFormData] = useState({
-    description: '',
+    name: "",
+    category: "Other",
+    description: "",
     picture: null,
-    location: '',
-    dateAndTime: '',
-    phoneNumber: '',
+    location: "",
+    dateAndTime: "",
+    phoneNumber: "",
   });
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: files ? files[0] : value, // Handle file input for pictures
+      [name]: value,
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      picture: e.target.files[0], // Handle file input for pictures
     });
   };
 
@@ -24,24 +34,35 @@ function Report() {
     e.preventDefault();
 
     try {
-      // Prepare data for Firebase
-      const { description, location, dateAndTime, phoneNumber } = formData;
-      const dataToSubmit = {
-        description,
-        location,
-        dateAndTime,
-        phoneNumber,
-        timestamp: new Date(), // Add timestamp if needed
-      };
+      const itemId = uuidv4(); // Generate a unique ID for the lost item
 
-      // Save data to Firestore
-      await addDoc(collection(db, 'lost_items'), dataToSubmit);
+      // Add the form data to Firestore with the unique ID
+      await setDoc(doc(db, "lost_items", itemId), {
+        id: itemId, // Explicitly store the ID
+        name: formData.name,
+        category: formData.category,
+        description: formData.description,
+        location: formData.location,
+        date_lost: formData.dateAndTime,
+        contact_details: formData.phoneNumber,
+        photo_url: formData.picture ? URL.createObjectURL(formData.picture) : null,
+      });
 
-      alert('Data submitted successfully!');
-      setFormData({ description: '', picture: null, location: '', dateAndTime: '', phoneNumber: '' }); // Reset form
+      alert("Lost item submitted successfully with ID: " + itemId);
+
+      // Reset form
+      setFormData({
+        name: "",
+        category: "Other",
+        description: "",
+        picture: null,
+        location: "",
+        dateAndTime: "",
+        phoneNumber: "",
+      });
     } catch (error) {
-      console.error('Error submitting data:', error);
-      alert('There was an error submitting the form');
+      console.error("Error adding document: ", error);
+      alert("There was an error submitting the form");
     }
   };
 
@@ -50,12 +71,42 @@ function Report() {
       <h1>Report a Lost Item</h1>
       <form onSubmit={handleSubmit}>
         <label>
+          Name of the item:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Category:
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Cosmetics">Cosmetics</option>
+            <option value="Food">Food</option>
+            <option value="Jewellery">Jewellery</option>
+            <option value="Documents">Documents</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <br />
+        <label>
           Describe the item:
           <input
             type="text"
             name="description"
             value={formData.description}
             onChange={handleChange}
+            required
           />
         </label>
         <br />
@@ -64,7 +115,7 @@ function Report() {
           <input
             type="file"
             name="picture"
-            onChange={handleChange}
+            onChange={handleFileChange}
           />
         </label>
         <br />
@@ -75,6 +126,7 @@ function Report() {
             name="location"
             value={formData.location}
             onChange={handleChange}
+            required
           />
         </label>
         <br />
@@ -85,6 +137,7 @@ function Report() {
             name="dateAndTime"
             value={formData.dateAndTime}
             onChange={handleChange}
+            required
           />
         </label>
         <br />
@@ -95,10 +148,11 @@ function Report() {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
+            required
           />
         </label>
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit" class = "report-button">Submit</button>
       </form>
     </div>
   );

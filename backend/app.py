@@ -13,7 +13,7 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 app = Flask(__name__)
-CORS(app, resources={r"/rank_posts": {"origins": "*"}}) 
+CORS(app, origins="http://localhost:3000")
 
 nltk.download('punkt_tab')
 nltk.download('stopwords')
@@ -78,30 +78,48 @@ def get_similarity(sent1,sent2):
 
     return 0.3 * len(set1.intersection(set2)) + 0.7 * len(set1_noun.intersection(set2_noun))
 
-@app.route('/rank_posts',methods=['POST'])
-@cross_origin()
+@app.route('/rank_posts', methods=['POST'])
 def rank_posts():
-    to_find_json = request.json
-    to_find_id = to_find_json.get('id')
-    to_find_ref = db.collection('found_items').document(to_find_id)
-    to_find_doc = to_find_ref.get()
-    to_find_description = to_find_doc.to_dict().get('description', '')
-    
-    found_items_ref = db.collection('found_items')
-    docs = found_items_ref.stream()
+    try:
+        to_find_json = request.json
 
-    scored_items = []
+        print(f"Received ID from client: {to_find_json['id']}")
 
-    for doc in docs:
-        data = doc.to_dict()
-        item_id = doc.id 
-        description = data.get('description', '')
-        
-        score = get_similarity(to_find_description,description)
-        
-        scored_items.append({"id": item_id, "description": description, "score": score})
+        to_find_ref = db.collection('lost_items').document(to_find_json['id'])
+        print(to_find_ref)
+        to_find_doc = to_find_ref.get() 
+        print(to_find_doc)
 
-    return jsonify(sorted(scored_items, key=lambda x: x['score'], reverse=True))
+        # Extract the description field
+        to_find_data = to_find_doc.to_dict()
+        print(to_find_data)
+        print(f"Document fields: {to_find_doc.to_dict()}")
+        to_find_description = to_find_data.get("description")
+        if not to_find_description:
+            print("Description field missing or empty.")
+            return jsonify({"error": "Document has no 'description' field"}), 400
+
+        print(f"Description fetched: {to_find_description}")
+
+        # Fetch all documents in 'found_items' and compute similarity
+        found_items_ref = db.collection('found_items')
+        docs = found_items_ref.stream()
+
+        scored_items = []
+        for doc in docs:
+            data = doc.to_dict()  # Convert document snapshot to dictionary
+            item_id = doc.id
+            description = data.get('description', '')  # Safely retrieve 'description'
+
+            score = get_similarity(to_find_description, description)
+            scored_items.append({"id": item_id, "description": description, "score": score})
+
+        # Return sorted items
+        return jsonify(sorted(scored_items, key=lambda x: x['score'], reverse=True))
+
+    except Exception as e:
+        print(f"Internal Server Error: {e}")
+        return jsonify({"error": str(e)}), 500
 
 desc_input = "Black sports watch with silicone strap"
 to_find_input = ["Black bag with phone inside", "Brown leather bag with wallet","Red backpack with water bottle holder",

@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/backend/lost-and-found-dc831-firebase-adminsdk-fbsvc-c26069cf95.json
 
 # testing
 /coverage

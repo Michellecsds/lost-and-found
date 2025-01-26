@@ -1,0 +1,82 @@
+/* src/components/ChatBox.css */
+.chat-box {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+  }
+  
+  .chat-header {
+    background-color: #3587a4;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .chat-messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 200px;
+  }
+  
+  .chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .user-message {
+    background-color: #d1e7f5;
+    align-self: flex-end;
+  }
+  
+  .finder-message {
+    background-color: #f8d7da;
+    align-self: flex-start;
+  }
+  
+  .chat-input-container {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+  }
+  
+  .chat-input {
+    flex: 1;
+    padding: 15px; /* Increase padding for a larger appearance */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* Make the text inside larger */
+    height: 50px; /* Add height to make the input taller */
+    width: 500px;
+    resize: none; /* Prevent resizing if you use a <textarea> instead of <input> */
+  }
+  
+  /* Ensure the send button matches the new height */
+  .send-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px; /* Match padding to the input */
+    margin-left: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 50px; /* Match height to the input */
+  }
+  
+  .send-button:hover {
+    background-color: #45a049;
+  }
+  
