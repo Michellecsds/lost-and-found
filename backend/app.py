@@ -7,7 +7,7 @@ from flask_cors import CORS, cross_origin
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-cred = credentials.Certificate("lost-and-found-dc831-firebase-adminsdk-fbsvc-c26069cf95.json")
+cred = credentials.Certificate("backend/lost-and-found-dc831-firebase-adminsdk-fbsvc-c26069cf95.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
