@@ -38,18 +38,18 @@ function Home() {
             <div class="first">
               <h2>Report Lost Items Easily</h2>
               <p>
-              Our platform allows you to quickly report lost items with a detailed description and location. This helps increase the chances of your items being found and returned.
+              Lost an item?? Our platform allows you to quickly report lost items with a detailed description and location. This helps increase the chances of your items being found and returned.
               </p>
               <button type="button" class = "button"><Link to="/Report">Report Lost Item</Link></button>
             </div>
           </div>
           <div class="child">
             <div class="second">
-              <h2>Find and Claim Found Items</h2>
+              <h2>Report Found Items</h2>
               <p>
-              Browse through the list of found items reported by others. If you find your item, you can easily claim it and arrange for its return.
+              Found an item lying around campus? Report it here with a description of the item and the location.
               </p>
-              <button type="button" class = "button"><Link to="/Find">Find Found Item</Link></button>
+              <button type="button" class = "button"><Link to="/Find">Report Found Item</Link></button>
             </div>
           </div>
         </div>
