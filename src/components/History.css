@@ -14,12 +14,12 @@
   font-size: 24px;
 }
 
-ul {
+.history-container ul {
   list-style: none;
   padding: 0;
 }
 
-li {
+.history-container li {
   background: #f9f9f9;
   margin-bottom: 10px;
   padding: 15px;
@@ -28,15 +28,15 @@ li {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-li h3 {
+.history-containerli h3 {
   margin: 0 0 8px 0;
 }
 
-li p {
+.history-container li p {
   margin: 5px 0;
 }
 
-li:hover {
+.history-container li:hover {
   background-color: #f1f1f1;
   cursor: pointer;
 }
