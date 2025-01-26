@@ -2,16 +2,29 @@
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-results-container h1 {
+  text-align: center;
+  color: #333;
 }
 
 .search-result-item {
-  border: 1px solid #ccc;
-  padding: 10px;
+  border: 1px solid #ddd;
+  padding: 15px;
   margin: 10px 0;
-  border-radius: 5px;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.search-result-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .search-result-item h3 {
-  margin: 0;
-  font-size: 1.5em;
+  color: #0073e6;
 }

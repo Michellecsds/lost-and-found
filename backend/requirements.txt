@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+firebase-admin
+nltk
+opencv-python-headless
+Pillow
+requests
